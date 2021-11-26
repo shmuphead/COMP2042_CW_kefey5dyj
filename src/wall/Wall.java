@@ -21,13 +21,13 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-import test.Ball;
-import test.Brick;
-import test.CementBrick;
-import test.ClayBrick;
-import test.Player;
-import test.RubberBall;
-import test.SteelBrick;
+import ball.Ball;
+import ball.RubberBall;
+import brick.Brick;
+import brick.CementBrick;
+import brick.ClayBrick;
+import brick.SteelBrick;
+import player.Player;
 
 
 public class Wall {
