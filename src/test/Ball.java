@@ -125,6 +125,22 @@ abstract public class Ball {
     public int getSpeedY(){
         return speedY;
     }
+    
+    // Following are the addition of getter function to reinforce encapsulation
 
-
+    public Point2D getBallDown() {
+    	return down;
+    }
+    
+    public Point2D getBallUp() {
+    	return up;
+    }
+    
+    public Point2D getBallLeft() {
+    	return left;
+    }
+    
+    public Point2D getBallRight() {
+    	return right;
+    }
 }

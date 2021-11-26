@@ -67,7 +67,8 @@ public class Player {
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
-    public void movRight(){
+    // Fixing naming convention (movRight -> moveRight)
+    public void moveRight(){
         moveAmount = DEF_MOVE_AMOUNT;
     }
 

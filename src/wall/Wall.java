@@ -15,11 +15,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test;
+package wall;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
+
+import test.Ball;
+import test.Brick;
+import test.CementBrick;
+import test.ClayBrick;
+import test.Player;
+import test.RubberBall;
+import test.SteelBrick;
 
 
 public class Wall {
@@ -203,21 +211,23 @@ public class Wall {
     private boolean impactWall(){
         for(Brick b : bricks){
             switch(b.findImpact(ball)) {
+            	// Getter function is created in ball class for encapsulation
+            	// e.g. ball.getBallDown() instead of ball.down
                 //Vertical Impact
                 case Brick.UP_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.down, Brick.Crack.UP);
+                    return b.setImpact(ball.getBallDown(), Brick.Crack.UP);
                 case Brick.DOWN_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.up,Brick.Crack.DOWN);
+                    return b.setImpact(ball.getBallUp(),Brick.Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.right,Brick.Crack.RIGHT);
+                    return b.setImpact(ball.getBallRight(),Brick.Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.left,Brick.Crack.LEFT);
+                    return b.setImpact(ball.getBallLeft(),Brick.Crack.LEFT);
             }
         }
         return false;
@@ -290,7 +300,7 @@ public class Wall {
     public void resetBallCount(){
         ballCount = 3;
     }
-
+    
     private Brick makeBrick(Point point, Dimension size, int type){
         Brick out;
         switch(type){
@@ -307,6 +317,20 @@ public class Wall {
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
         }
         return  out;
+    }
+    
+    // Following are the addition of getter function to reinforce encapsulation
+    
+    public Ball getBall() {
+    	return ball;
+    }
+    
+    public Brick[] getBricks() {
+    	return bricks;
+    }
+    
+    public Player getPlayer() {
+    	return player;
     }
 
 }

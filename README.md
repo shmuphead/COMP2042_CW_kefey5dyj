@@ -10,3 +10,8 @@ ALT+SHITF+F1 open console
 the game automatically pause if the frame loses focus
 
 Enjoy ;-)
+
+Refactor changes:
+- Change Player().movRight() to moveRight()
+- Adding getter functions for Ball and Wall class
+- Moving Wall class to wall package

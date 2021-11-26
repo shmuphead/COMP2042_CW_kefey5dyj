@@ -19,6 +19,9 @@ package test;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
+
+import wall.Wall;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 
