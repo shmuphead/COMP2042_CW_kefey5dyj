@@ -24,10 +24,17 @@ import brick.Brick;
 import debug.DebugConsole;
 import player.Player;
 import wall.Wall;
+import score.ScoreManager;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 
 
@@ -39,7 +46,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final String PAUSE = "Pause Menu";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0,255,0);
-
+    
+    // Additional variables for high score implementation
+    private static int CURRENT_LEVEL_BRICK_COUNT;
+    private static int SCORE = 0;
+    private static ArrayList<Integer> SCORE_LIST = new ArrayList<Integer>();
+    private static ScoreManager scoreManager = score.ScoreManager.getScoreManager();
+    // End of Section
 
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
@@ -62,8 +75,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private int strLen;
 
     private DebugConsole debugConsole;
-
-
+    
     public GameBoard(JFrame owner){
         super();
 
@@ -76,12 +88,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
 
         this.initialize();
+        SCORE_LIST = scoreManager.getScoreList();
+        System.out.println("Final size: " + SCORE_LIST.size());
+        for(int i:SCORE_LIST) {
+    		System.out.println(i);
+    	}
+        
         message = "";
         wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
 
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
+        setTotalBrick(wall.getBrickCount());
 
         gameTimer = new Timer(10,e ->{
             wall.move();
@@ -89,6 +108,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             message = String.format("Bricks: %d Balls %d",wall.getBrickCount(),wall.getBallCount());
             if(wall.isBallLost()){
                 if(wall.ballEnd()){
+                	setScore();
+                	exportScore();
                     wall.wallReset();
                     message = "Game over";
                 }
@@ -97,13 +118,17 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             }
             else if(wall.isDone()){
                 if(wall.hasLevel()){
+                	setScore();
                     message = "Go to Next Level";
                     gameTimer.stop();
                     wall.ballReset();
                     wall.wallReset();
                     wall.nextLevel();
+                    setTotalBrick(wall.getBrickCount());
                 }
                 else{
+                	setScore();
+                	exportScore();
                     message = "ALL WALLS DESTROYED";
                     gameTimer.stop();
                 }
@@ -379,4 +404,37 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         repaint();
     }
 
+    // Additional Function for High Score Implementation
+    
+    private void setTotalBrick(int brick) {
+    	CURRENT_LEVEL_BRICK_COUNT = brick;
+    	System.out.println(brick);
+    }
+    
+    private void setScore() {
+    	SCORE += CURRENT_LEVEL_BRICK_COUNT - wall.getBrickCount();
+    	System.out.println(SCORE);
+    }
+    
+    private void exportScore() {
+    	// Resetting the score before export
+    	SCORE_LIST.add(SCORE);
+    	SCORE = 0;
+    	// End of Section
+    	
+    	
+    	Collections.sort(SCORE_LIST, Collections.reverseOrder());
+    	SCORE_LIST = scoreManager.trimScore(SCORE_LIST);
+    	
+    	try {
+    		File file = new File("score.txt");
+    		FileWriter fileWriter = new FileWriter(file,false);
+    		for(int i:SCORE_LIST) {
+        		fileWriter.write(String.valueOf(i)+"\n");
+        	}
+    		fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }

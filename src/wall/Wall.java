@@ -27,6 +27,8 @@ import brick.Brick;
 import brick.CementBrick;
 import brick.ClayBrick;
 import brick.SteelBrick;
+import game.GameBoard;
+import game.GameFrame;
 import player.Player;
 
 
