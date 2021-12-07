@@ -44,25 +44,14 @@ public class ScoreManager {
 	
 	public String getScoreString(){
 		
-		int i = 1;
+		int i=1;
+		ArrayList<Integer> SCORE_LIST = getScoreList();
 		String text_string = "";
-		
-		try {
-			File SCORE_FILE = new File("score.txt");
-			SCORE_FILE.createNewFile();
-			Scanner readFile = new Scanner(SCORE_FILE);
-			while(i<=5) {
-				String data = readFile.nextLine();
-				int score = Integer.parseInt(data);
-				text_string += String.format("%d.\t\t\t\t%d\n", i,score);
-				i+=1;
-			}
-			readFile.close();
-		} catch (IOException e) {
-			
-			e.printStackTrace();
+	
+		for(int j:SCORE_LIST) {
+			text_string += String.format("%d.\t\t\t\t%d\n", i,j);
+			i++;
 		}
-		
 		return text_string;
 		
 	}

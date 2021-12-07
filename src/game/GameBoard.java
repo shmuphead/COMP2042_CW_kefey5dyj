@@ -34,8 +34,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
-
 
 
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {

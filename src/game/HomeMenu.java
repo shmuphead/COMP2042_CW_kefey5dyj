@@ -25,6 +25,12 @@ import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final String GREETINGS = "Welcome to:";
@@ -41,6 +47,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private static final Color CLICKED_TEXT = Color.WHITE;
     private static final int BORDER_SIZE = 5;
     private static final float[] DASHES = {12,6};
+    
+    private BufferedImage img;
 
     private Rectangle menuFace;
     private Rectangle startButton;
@@ -88,7 +96,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         creditsFont = new Font("Monospaced",Font.PLAIN,10);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
 
-
+        try {
+			this.img = ImageIO.read(new File("img.jpeg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
     }
 
@@ -128,9 +140,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
-        g2d.setColor(BG_COLOR);
-        g2d.fill(menuFace);
-
+        // g2d.setColor(BG_COLOR);
+        // g2d.fill(menuFace);
+        
+        g2d.drawImage(img, 0, 0, getWidth(),getHeight(),null);
+        
         Stroke tmp = g2d.getStroke();
 
         g2d.setStroke(borderStoke_noDashes);
