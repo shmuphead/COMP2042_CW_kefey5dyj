@@ -29,28 +29,38 @@ import score.ScoreManager;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
-    private static final String CONTINUE = "Continue";
+    /**
+	 * Addition - serialVersionUID added for error suppression.
+	 */
+	private static final long serialVersionUID = -7685494269022321959L;
+	private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
     private static final String PAUSE = "Pause Menu";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0,255,0);
     
-    // Additional variables for high score implementation
+    /**
+     * Addition - Counter for current level brick to use in high score calculation.
+     */
     private static int CURRENT_LEVEL_BRICK_COUNT;
-    private static int SCORE = 0;
+    /**
+     * Addition - Current score.
+     */
+    private static int CURRENT_SCORE = 0;
+    /**
+     * Addition - ArrayList for high scores tracking.
+     */
     private static ArrayList<Integer> SCORE_LIST = new ArrayList<Integer>();
+    /**
+     * Addition - Getting the global instance of ScoreManager class.
+     */
     private static ScoreManager scoreManager = score.ScoreManager.getScoreManager();
-    // End of Section
 
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
@@ -74,6 +84,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private DebugConsole debugConsole;
     
+    /**
+     * Main Window for game
+     * @param owner JFrame main window
+     */
     public GameBoard(JFrame owner){
         super();
 
@@ -86,20 +100,20 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
 
         this.initialize();
+        
+        // Addition - Aggregation relationship with ScoreManager class.
         SCORE_LIST = scoreManager.getScoreList();
-        System.out.println("Final size: " + SCORE_LIST.size());
-        for(int i:SCORE_LIST) {
-    		System.out.println(i);
-    	}
         
         message = "";
         wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
 
         debugConsole = new DebugConsole(owner,wall,this);
-        //initialize the first level
+        
+        // Initialize the first level and record the total brick count for current level.
         wall.nextLevel();
         setTotalBrick(wall.getBrickCount());
-
+        
+        // Previously directly accessed variables were changed to getter function equivalent.
         gameTimer = new Timer(10,e ->{
             wall.move();
             wall.findImpacts();
@@ -148,7 +162,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.addMouseMotionListener(this);
     }
 
-
+    
+    /**
+     * Responsible of drawing the screen/displaying content
+     */
+    
     public void paint(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
@@ -290,17 +308,23 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         }
 
         g2d.drawString(EXIT,x,y);
-
-
-
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);
     }
-
+    
+    /**
+     * Key press action listener
+     */
+    
     @Override
     public void keyTyped(KeyEvent keyEvent) {
     }
-
+    
+    /**
+     * Key press (hold) action listener
+     * for player panel movement and entering/exiting pause menu
+     */
+    
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
@@ -329,12 +353,21 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 wall.getPlayer().stop();
         }
     }
-
+    
+    /**
+     * Key released action listener
+     */
+    
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         wall.getPlayer().stop();
     }
 
+    /**
+     * Mouse clicking action listener for pause menu with corresponding reaction code for each buttons
+     * (Continue, Restart, Exit)
+     */
+    
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -356,32 +389,56 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         }
 
     }
-
+    
+    /**
+     * Mouse holding action listener
+     */
+    
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * Mouse releasing action listener
+     */
+    
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * Mouse hover on windows action listener
+     */
+    
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * Mouse move out of windows action listener
+     */
+    
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * Mouse dragging action listener
+     */
+    
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * Changing mouse cursor/icon when hover into the menu buttons
+     */
+    
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -395,6 +452,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             this.setCursor(Cursor.getDefaultCursor());
         }
     }
+    
+    /**
+     * When game windows became inactive, pausing the game and display the "Focus Lost" message.
+     */
 
     public void onLostFocus(){
         gameTimer.stop();
@@ -402,37 +463,34 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         repaint();
     }
 
-    // Additional Function for High Score Implementation
+    /**
+     * Setter function for bricks counter which will be used for scoring evaluation.
+     * @param brick Amount of the bricks remained within the game.
+     */
     
     private void setTotalBrick(int brick) {
     	CURRENT_LEVEL_BRICK_COUNT = brick;
-    	System.out.println(brick);
     }
     
+    /**
+     * Setter function for total score evaluation 
+     */
+    
     private void setScore() {
-    	SCORE += CURRENT_LEVEL_BRICK_COUNT - wall.getBrickCount();
-    	System.out.println(SCORE);
+    	CURRENT_SCORE += CURRENT_LEVEL_BRICK_COUNT - wall.getBrickCount();
+    	System.out.println(CURRENT_SCORE);
     }
+    
+    /**
+     * Function to write the scores into the local file
+     */
     
     private void exportScore() {
     	// Resetting the score before export
-    	SCORE_LIST.add(SCORE);
-    	SCORE = 0;
+    	SCORE_LIST.add(CURRENT_SCORE);
+    	CURRENT_SCORE = 0;
     	// End of Section
     	
-    	
-    	Collections.sort(SCORE_LIST, Collections.reverseOrder());
-    	SCORE_LIST = scoreManager.trimScore(SCORE_LIST);
-    	
-    	try {
-    		File file = new File("score.txt");
-    		FileWriter fileWriter = new FileWriter(file,false);
-    		for(int i:SCORE_LIST) {
-        		fileWriter.write(String.valueOf(i)+"\n");
-        	}
-    		fileWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	scoreManager.exportScore(SCORE_LIST);
     }
 }

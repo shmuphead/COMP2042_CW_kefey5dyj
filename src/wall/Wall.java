@@ -27,14 +27,12 @@ import brick.Brick;
 import brick.CementBrick;
 import brick.ClayBrick;
 import brick.SteelBrick;
-import game.GameBoard;
-import game.GameFrame;
 import player.Player;
 
 
 public class Wall {
 
-    private static final int LEVELS_COUNT = 4;
+    private static final int LEVELS_COUNT = 5;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
@@ -55,12 +53,20 @@ public class Wall {
     private int ballCount;
     private boolean ballLost;
 
+    /**
+     * Initializing level, seed, bricks, player and ball 
+     * @param drawArea Dimension/Area size of bricks
+     * @param brickCount Total brick count
+     * @param lineCount Brick wall row count
+     * @param brickDimensionRatio Bricks' dimension/size/width-height ratio
+     * @param ballPos Initial ball position
+     */
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
         this.startPoint = new Point(ballPos);
 
         levels = makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
-        level = 0;
+        level = 3;
 
         ballCount = 3;
         ballLost = false;
@@ -180,14 +186,21 @@ public class Wall {
         tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
+        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,STEEL);
         return tmp;
     }
-
+    
+    /**
+     * Move function for player and ball.
+     */
     public void move(){
         player.move();
         ball.move();
     }
 
+    /**
+     * Collision detection for the balls
+     */
     public void findImpacts(){
         if(player.impact(ball)){
             ball.reverseY();
@@ -239,19 +252,34 @@ public class Wall {
         Point2D p = ball.getPosition();
         return ((p.getX() < area.getX()) ||(p.getX() > (area.getX() + area.getWidth())));
     }
-
+    
+    /**
+     * Getter function for total bricks value
+     * @return Total bricks value
+     */
     public int getBrickCount(){
         return brickCount;
     }
 
+    /**
+     * Getter function for total ball value
+     * @return Total ball value
+     */
     public int getBallCount(){
         return ballCount;
     }
 
+    /**
+     * Check for ball lost
+     * @return 
+     */
     public boolean isBallLost(){
         return ballLost;
     }
 
+    /**
+     * Ball reseting function (Initial position, speed)
+     */
     public void ballReset(){
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
@@ -267,6 +295,9 @@ public class Wall {
         ballLost = false;
     }
 
+    /**
+     * Wall/Bricks reseting function
+     */
     public void wallReset(){
         for(Brick b : bricks)
             b.repair();
@@ -274,31 +305,57 @@ public class Wall {
         ballCount = 3;
     }
 
+    /**
+     * Condition check function for no remaining ball left
+     * @return True if no remaining ball left
+     */
     public boolean ballEnd(){
         return ballCount == 0;
     }
 
+    /**
+     * Condition check function if the current level is finished
+     * @return True if no remaining brick left
+     */
     public boolean isDone(){
         return brickCount == 0;
     }
 
+    /**
+     * Next level/level increment function
+     */
     public void nextLevel(){
         bricks = levels[level++];
         this.brickCount = bricks.length;
     }
 
+    /**
+     * Remaining level check function
+     * @return True if remaining level exist
+     */
     public boolean hasLevel(){
         return level < levels.length;
     }
 
-    public void setBallXSpeed(int s){
-        ball.setXSpeed(s);
+    /**
+     * Setter function for ball X-axis movement speed
+     * @param speed Ball new X-axis movement speed value
+     */
+    public void setBallXSpeed(int speed){
+        ball.setXSpeed(speed);
     }
 
-    public void setBallYSpeed(int s){
-        ball.setYSpeed(s);
+    /**
+     * Setter function for ball Y-axis movement speed
+     * @param speed Ball new Y-axis movement speed value
+     */
+    public void setBallYSpeed(int speed){
+        ball.setYSpeed(speed);
     }
 
+    /**
+     * Ball count resetting function
+     */
     public void resetBallCount(){
         ballCount = 3;
     }
@@ -321,16 +378,26 @@ public class Wall {
         return  out;
     }
     
-    // Following are the addition of getter function to reinforce encapsulation
-    
+    /**
+     * Getter function for instance of Ball().
+     * @return an instance of Ball()
+     */
     public Ball getBall() {
     	return ball;
     }
     
+    /**
+     * Getter function for instance of Brick().
+     * @return an array of instances of Brick()
+     */
     public Brick[] getBricks() {
     	return bricks;
     }
     
+    /**
+     * Getter function for instance of Player().
+     * @return an instance of Player().
+     */
     public Player getPlayer() {
     	return player;
     }

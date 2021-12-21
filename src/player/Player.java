@@ -18,11 +18,14 @@
 package player;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 import ball.Ball;
 
+/**
+ * Unused libraries and minor typos are removed from the class
+ * @author kefey5dyj
+ *
+ */
 
 public class Player {
 
@@ -38,7 +41,13 @@ public class Player {
     private int min;
     private int max;
 
-
+    /**
+     * Player entity/class initialization
+     * @param ballPoint Player coordinate which shared with ball's
+     * @param width Width of the player panel
+     * @param height Height of the player panel
+     * @param container Layout of the player panel
+     */
     public Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
@@ -53,11 +62,18 @@ public class Player {
         return  new Rectangle(p,new Dimension(width,height));
     }
     
-    // Argument 'b' was replaced with 'ball' to improve readability
+    /**
+     * Function for Ball-Player collision detection.
+     * @param ball Originally 'b', changed for readability.
+     * @return True value is returned if collision is detected.
+     */
     public boolean impact(Ball ball){
         return playerFace.contains(ball.getPosition()) && playerFace.contains(ball.getBallDown()) ;
     }
 
+    /**
+     * Player move function
+     */
     public void move(){
         double x = ballPoint.getX() + moveAmount;
         if(x < min || x > max)
@@ -66,25 +82,43 @@ public class Player {
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 
+    /**
+     * Player left movement function
+     */
     public void moveLeft(){
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
-    // Fixing naming convention (movRight -> moveRight)
+    /**
+     * Maintenance - Typo fixed. (movRight -> moveRight)
+     * Player right movement function
+     */
     public void moveRight(){
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * Player stop movement function
+     */
     public void stop(){
         moveAmount = 0;
     }
 
+    /**
+     * Getter function for player Shape/layout
+     * @return Player Shape/layout
+     */
     public Shape getPlayerFace(){
         return  playerFace;
     }
 
-    public void moveTo(Point p){
-        ballPoint.setLocation(p);
+    /**
+     * Maintenance - Changed parameter (p -> position) for readability.
+     * Setter function for both player and ball.
+     * @param position coordinates of the player + ball
+     */
+    public void moveTo(Point position){
+        ballPoint.setLocation(position);
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 }

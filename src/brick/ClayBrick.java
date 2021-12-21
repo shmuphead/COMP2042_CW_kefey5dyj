@@ -17,10 +17,11 @@ public class ClayBrick extends Brick {
     private static final int CLAY_STRENGTH = 1;
 
 
-
-
-
-
+    /**
+     * Creating Clay Brick instance
+     * @param point Initial position for brick instance
+     * @param size Dimension/Size of the brick
+     */
     public ClayBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
     }
@@ -30,6 +31,9 @@ public class ClayBrick extends Brick {
         return new Rectangle(pos,size);
     }
 
+    /**
+     * Getter function for brick layout
+     */
     @Override
     public Shape getBrick() {
         return super.brickFace;

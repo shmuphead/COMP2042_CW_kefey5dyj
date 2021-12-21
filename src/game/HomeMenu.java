@@ -33,7 +33,11 @@ import javax.imageio.ImageIO;
 
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
-    private static final String GREETINGS = "Welcome to:";
+    /**
+	 * Addition - added serialVersionUID for error suppression.
+	 */
+	private static final long serialVersionUID = 7488822646828530664L;
+	private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
     private static final String START_TEXT = "Start";
@@ -68,7 +72,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean startClicked;
     private boolean menuClicked;
 
-
+    /**
+     * Main menu initialization
+     * @param owner JFrame main window
+     * @param area window dimension/size
+     */
     public HomeMenu(GameFrame owner,Dimension area){
 
         this.setFocusable(true);
@@ -78,8 +86,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         this.addMouseMotionListener(this);
 
         this.owner = owner;
-
-
 
         menuFace = new Rectangle(new Point(0,0),area);
         this.setPreferredSize(area);
@@ -96,20 +102,25 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         creditsFont = new Font("Monospaced",Font.PLAIN,10);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
 
+        /*
+         * Addition - Read Image to display in the menu
+         */
         try {
-			this.img = ImageIO.read(new File("img.jpeg"));
+			this.img = ImageIO.read(new File("src/game/assets/home.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
     }
 
-
     public void paint(Graphics g){
         drawMenu((Graphics2D)g);
     }
 
-
+    /**
+     * Custom function for displaying home menu content.
+     * @param g2d graphic context to display content on.
+     */
     public void drawMenu(Graphics2D g2d){
 
         drawContainer(g2d);
@@ -140,8 +151,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
-        // g2d.setColor(BG_COLOR);
-        // g2d.fill(menuFace);
+        /*
+         * Display image on the home menu instead of fill color.
+         */
         
         g2d.drawImage(img, 0, 0, getWidth(),getHeight(),null);
         

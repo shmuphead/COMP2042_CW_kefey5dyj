@@ -17,13 +17,17 @@
  */
 package game;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.awt.event.WindowListener;
 
+/**
+ * Unused libraries are removed
+ * @author kefey5dyj
+ *
+ */
 
 public class GameFrame extends JFrame implements WindowFocusListener {
 
@@ -34,6 +38,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private boolean gaming;
 
+    /**
+     * Constructor of GameFrame class which responsible for initializing the game when launching.
+     */
     public GameFrame(){
         super();
 
@@ -52,6 +59,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     }
 
+    /**
+     * Initialization function when the program started.
+     */
     public void initialize(){
         this.setTitle(DEF_TITLE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -59,7 +69,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.autoLocate();
         this.setVisible(true);
     }
-
+    
+    /**
+     * Switching scene from Home Menu to Game Screen.
+     */
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);

@@ -40,6 +40,10 @@ public class DebugPanel extends JPanel {
 
     private Wall wall;
 
+    /**
+     * Debug menu for modifying game parameters under debug mode
+     * @param wall Wall class object
+     */
     public DebugPanel(Wall wall){
 
         this.wall = wall;
@@ -79,7 +83,12 @@ public class DebugPanel extends JPanel {
         out.addChangeListener(e);
         return out;
     }
-
+    
+    /**
+     * Setter function for ball speed
+     * @param x New value for ball speed in X-axis
+     * @param y New value for ball speed in Y-axis
+     */
     public void setValues(int x,int y){
         ballXSpeed.setValue(x);
         ballYSpeed.setValue(y);

@@ -16,7 +16,11 @@ public class CementBrick extends Brick {
     private Crack crack;
     private Shape brickFace;
 
-
+    /**
+     * Creating Cement Brick instance
+     * @param point Initial position for brick instance
+     * @param size Dimension/Size of the brick
+     */
     public CementBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
         crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS);
@@ -41,7 +45,11 @@ public class CementBrick extends Brick {
         return true;
     }
 
-
+    
+    /**
+     * Getter function for brick Shape variable
+     */
+    
     @Override
     public Shape getBrick() {
         return brickFace;
@@ -54,7 +62,7 @@ public class CementBrick extends Brick {
             brickFace = gp;
         }
     }
-
+          
     public void repair(){
         super.repair();
         crack.reset();

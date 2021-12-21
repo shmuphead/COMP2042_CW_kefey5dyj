@@ -27,6 +27,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main Function which start the game and JavaFX program
+ * @author kefey5dyj (Addition)
+ *
+ */
+
 
 public class GraphicsMain extends Application {
 
@@ -35,7 +41,11 @@ public class GraphicsMain extends Application {
         EventQueue.invokeLater(() -> new GameFrame().initialize());
         launch(args);
     }
-
+	
+	/**
+	 * Start function used by JavaFX library at launch for the scoreboard.
+	 */
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		

@@ -33,6 +33,11 @@ public class SteelBrick extends Brick {
     private Random rnd;
     private Shape brickFace;
 
+    /**
+     * Creating Steel Brick instance
+     * @param point Initial position for brick instance
+     * @param size Dimension/Size of the brick
+     */
     public SteelBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
         rnd = new Random();
@@ -44,7 +49,10 @@ public class SteelBrick extends Brick {
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
     }
-
+    
+    /**
+     * Getter function for brick Shape variable
+     */
     @Override
     public Shape getBrick() {
         return brickFace;

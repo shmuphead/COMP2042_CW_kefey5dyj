@@ -189,7 +189,15 @@ abstract public class Brick  {
 
     private boolean broken;
 
-
+    /**
+     * Creating a Brick Instance
+     * @param name Brick type name
+     * @param pos Brick initial position
+     * @param size Brick dimension/size
+     * @param border Brick border color
+     * @param inner Brick fill color
+     * @param strength Brick hitpoint
+     */
     public Brick(String name, Point pos,Dimension size,Color border,Color inner,int strength){
         rnd = new Random();
         broken = false;
@@ -203,7 +211,14 @@ abstract public class Brick  {
 
     protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
-    public  boolean setImpact(Point2D point , int dir){
+    /**
+     * Function used when ball-brick collision occurred
+     * @param point Ball's pointing direction
+     * @param dir Direction information for brick cracking effect
+     * @return True if brick is broken and vice versa.
+     */
+    
+    public boolean setImpact(Point2D point , int dir){
         if(broken)
             return false;
         impact();
@@ -211,19 +226,34 @@ abstract public class Brick  {
     }
 
     public abstract Shape getBrick();
-
-
-
+    
+    /**
+     * Getter function of border color for specific brick instance
+     * @return Border Color variable
+     */
+    
     public Color getBorderColor(){
         return  border;
     }
-
+    
+    /**
+     * Getter function of fill color for specific brick instance
+     * @return Fill Color Variable
+     */
+    
     public Color getInnerColor(){
         return inner;
     }
 
     // Rename b to ball for readability and using the getter function
     // replacing direct access into the object's attribute
+    
+    /**
+     * Maintenance - change 'b' argument to 'ball' for readability
+     * @param ball Ball instance currently ingame
+     * @return integer flag/counter indicating the colliding direction
+     */
+    
     public final int findImpact(Ball ball){
         if(broken)
             return 0;
@@ -239,15 +269,28 @@ abstract public class Brick  {
         return out;
     }
 
+    /**
+     * Check if specific brick instance broken
+     * @return True if brick broken and vice versa
+     */
+    
     public final boolean isBroken(){
         return broken;
     }
-
+    
+    /**
+     * Restore brick break status
+     */
+    
     public void repair() {
         broken = false;
         strength = fullStrength;
     }
-
+    
+    /**
+     * Hitpoint check for brick instances
+     */
+    
     public void impact(){
         strength--;
         broken = (strength == 0);
