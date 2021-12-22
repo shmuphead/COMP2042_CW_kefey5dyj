@@ -16,4 +16,6 @@ Refactor changes:
 - Replacing direct accessing variables with equivalent getter/setter functions for better encapsulation in Ball class.
 - Packages/Classes restructuring for ease of management
 - Menu displaying image
+- Additional stage added
+- Increasing ball speed after certain numbers of collisions
 - Javafx subprogram added

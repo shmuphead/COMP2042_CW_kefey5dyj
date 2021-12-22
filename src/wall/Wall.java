@@ -66,7 +66,7 @@ public class Wall {
         this.startPoint = new Point(ballPos);
 
         levels = makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
-        level = 3;
+        level = 0;
 
         ballCount = 3;
         ballLost = false;
