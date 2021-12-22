@@ -93,7 +93,7 @@ abstract public class Ball {
 
     /**
      * Ball X-axis speed setter function used by debug panel
-     * @param speedX Ball X-axis movement speed
+     * @param speed Ball X-axis movement speed
      */
     
     public void setXSpeed(int speed){

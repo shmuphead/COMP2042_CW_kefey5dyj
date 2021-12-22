@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx-swt.jar;C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx.graphics.jar;C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx.swing.jar;C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx.web.jar;C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx.fxml.jar;C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx.base.jar;C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx.media.jar;C:\Users\User\Downloads\javafx-sdk-17.0.1\lib\javafx.controls.jar" destdir="doc" doctitle="Javadoc for maintenance/additon/refactoring attempts" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="controller,wall,brick,player,debug,main,ball,score,game" source="16" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
