@@ -12,10 +12,8 @@ the game automatically pause if the frame loses focus
 Enjoy ;-)
 
 Refactor changes:
-- Change Player().movRight() to moveRight()
-- Adding getter functions for Ball and Wall class
-- Improve functions' argument readability
-- Replacing direct accessing variables with equivalent getter/setter functions
-- Packages/Classes restructuring
+- Improve functions' argument readability for ease of understanding in Ball, Brick and Player class.
+- Replacing direct accessing variables with equivalent getter/setter functions for better encapsulation in Ball class.
+- Packages/Classes restructuring for ease of management
 - Menu displaying image
 - Javafx subprogram added
