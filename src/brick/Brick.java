@@ -250,6 +250,7 @@ abstract public class Brick  {
     
     /**
      * Maintenance - change 'b' argument to 'ball' for readability
+     * Determine the collision direction
      * @param ball Ball instance currently ingame
      * @return integer flag/counter indicating the colliding direction
      */

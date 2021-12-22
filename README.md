@@ -14,8 +14,8 @@ Enjoy ;-)
 Refactor changes:
 - Change Player().movRight() to moveRight()
 - Adding getter functions for Ball and Wall class
-- Moving Wall class to wall package
-
 - Improve functions' argument readability
-- Replacing direct access into object's attribute with getter functions
-- More package restructuring
+- Replacing direct accessing variables with equivalent getter/setter functions
+- Packages/Classes restructuring
+- Menu displaying image
+- Javafx subprogram added
